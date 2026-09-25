@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
-import Navigator from "./components/Navigator";
+import NavigatorWrapper from "./components/navigator/NavigatorWrapper";
 
 import "./globals.css";
 
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 			<body className="flex flex-col md:flex-col-reverse w-screen h-screen overflow-hidden">
 				{children}
 
-				<Navigator />
+				<NavigatorWrapper />
 			</body>
 		</html>
 	);
