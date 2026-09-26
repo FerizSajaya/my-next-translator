@@ -1,4 +1,4 @@
-import { navigatorItems } from "@/app/enums/navigator.enum";
+import { navigatorItems } from "@/src/enums/navigator.enum";
 import DesktopNavigatorItem from "./DesktopNavigatorItem";
 
 export default function DesktopNavigator() {

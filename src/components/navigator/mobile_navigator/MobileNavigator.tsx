@@ -1,5 +1,5 @@
+import { navigatorItems } from "@/src/enums/navigator.enum";
 import MobileNavigatorItem from "./MobileNavigatorItem";
-import { navigatorItems } from "@/app/enums/navigator.enum";
 
 export default function MobileNavigator() {
 	return (

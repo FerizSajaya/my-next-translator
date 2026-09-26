@@ -1,7 +1,7 @@
 "use client";
 
-import { navigatorIcons } from "@/app/enums/navigator.enum";
-import { MobileNavigatorItemProps } from "@/app/types/navigator.interface";
+import { navigatorIcons } from "@/src/enums/navigator.enum";
+import { MobileNavigatorItemProps } from "@/src/types/navigator.interface";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
