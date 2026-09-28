@@ -1,11 +1,14 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema } from "@/src/lib/auth/validation";
 import { SignUpFormProps, SignUpInput } from "@/src/types/auth.interface";
 
 export default function SignUpForm({ onSwitch }: SignUpFormProps) {
+	const router = useRouter();
+
 	const {
 		register,
 		handleSubmit,
@@ -32,6 +35,8 @@ export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 			}
 
 			console.log("Signup successful:", result);
+
+			router.refresh();
 		} catch (error) {
 			console.error("Signup request failed:", error);
 		}

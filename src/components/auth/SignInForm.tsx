@@ -1,11 +1,14 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema } from "@/src/lib/auth/validation";
 import { SignInFormProps, SignInInput } from "@/src/types/auth.interface";
 
 export default function SignInForm({ onSwitch }: SignInFormProps) {
+	const router = useRouter();
+
 	const {
 		register,
 		handleSubmit,
@@ -15,7 +18,28 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 	});
 
 	const onSubmit = async (data: SignInInput) => {
-		console.log(data);
+		try {
+			const response = await fetch("/api/auth/signin", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			});
+
+			const result = await response.json();
+
+			if (!response.ok) {
+				console.error(result);
+				return;
+			}
+
+			console.log("Sign in successful:", result);
+
+			router.refresh();
+		} catch (error) {
+			console.error("Sign in request failed:", error);
+		}
 	};
 
 	return (
@@ -49,7 +73,7 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 			</form>
 
 			<div className="text-center text-sm">
-				Don't have account? {" "}
+				Don't have account?{" "}
 				<button type="button" onClick={onSwitch} className="font-medium underline">
 					Signup
 				</button>

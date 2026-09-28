@@ -2,11 +2,8 @@ import "server-only";
 
 import { createHash, randomBytes } from "node:crypto";
 import { cookies } from "next/headers";
-
 import { prisma } from "@/src/lib/prisma";
-
-const SESSION_COOKIE_NAME = "session";
-const SESSION_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
+import { SESSION_COOKIE_NAME, SESSION_DURATION } from "@/src/constants/auth";
 
 function hashSessionToken(token: string) {
 	return createHash("sha256").update(token).digest("hex");
@@ -37,4 +34,68 @@ export async function createSession(userId: number) {
 		expires: expiresAt,
 		path: "/",
 	});
+}
+
+export async function getCurrentUser() {
+	const cookieStore = await cookies();
+
+	const token = cookieStore.get(SESSION_COOKIE_NAME)?.value;
+
+	if (!token) {
+		return null;
+	}
+
+	const sessionId = hashSessionToken(token);
+
+	const session = await prisma.session.findUnique({
+		where: { id: sessionId },
+		select: {
+			id: true,
+			expiresAt: true,
+			user: {
+				select: {
+					id: true,
+					name: true,
+					email: true,
+					role: true,
+				},
+			},
+		},
+	});
+
+	if (!session) {
+		return null;
+	}
+
+	if (session.expiresAt <= new Date()) {
+		await prisma.session.delete({
+			where: { id: session.id },
+		});
+
+		cookieStore.delete(SESSION_COOKIE_NAME);
+
+		return null;
+	}
+
+	return session.user;
+}
+
+export async function deleteSession() {
+	const cookieStore = await cookies();
+
+	const token = cookieStore.get(SESSION_COOKIE_NAME)?.value;
+
+	if (!token) {
+		return;
+	}
+
+	const sessionId = hashSessionToken(token);
+
+	await prisma.session.deleteMany({
+		where: {
+			id: sessionId,
+		},
+	});
+
+	cookieStore.delete(SESSION_COOKIE_NAME);
 }
