@@ -15,7 +15,26 @@ export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 	});
 
 	const onSubmit = async (data: SignUpInput) => {
-		console.log(data);
+		try {
+			const response = await fetch("/api/auth/signup", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			});
+
+			const result = await response.json();
+
+			if (!response.ok) {
+				console.error(result);
+				return;
+			}
+
+			console.log("Signup successful:", result);
+		} catch (error) {
+			console.error("Signup request failed:", error);
+		}
 	};
 
 	return (
