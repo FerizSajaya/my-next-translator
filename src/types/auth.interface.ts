@@ -24,3 +24,7 @@ export interface UserProfileProps {
 		role: Role;
 	};
 }
+
+export interface AccessDeniedProps {
+	type: "UNAUTHORIZED" | "FORBIDDEN";
+}

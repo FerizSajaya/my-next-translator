@@ -1,5 +1,5 @@
-import { HomeIcon, LayoutDashboardIcon, TablePropertiesIcon } from "lucide-react";
 import { NavigatorItem } from "../types/navigator.interface";
+import { HomeIcon, LayoutDashboardIcon, TablePropertiesIcon } from "lucide-react";
 
 export const navigatorItems: NavigatorItem[] = [
 	{
@@ -19,6 +19,7 @@ export const navigatorItems: NavigatorItem[] = [
 		id: 3,
 		href: "/translations",
 		title: "Translations",
+		roles: ["USER", "ADMIN", "SUPER_ADMIN"],
 	},
 ];
 

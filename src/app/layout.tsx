@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto, Roboto_Mono, Geist } from "next/font/google";
 import { cn } from "cn";
 import NavigatorWrapper from "../components/navigator/NavigatorWrapper";
+import { Toaster } from "sonner";
 
 import "./globals.css";
 
@@ -29,6 +30,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 		<html lang="en" dir="ltr" className={cn("antialiased", geist.variable, roboto.variable, roboto_mono.variable, "font-sans")}>
 			<body className="flex flex-col md:flex-col-reverse w-screen h-screen overflow-hidden">
 				{children}
+
+				<Toaster position="top-center" richColors closeButton />
 
 				<NavigatorWrapper />
 			</body>

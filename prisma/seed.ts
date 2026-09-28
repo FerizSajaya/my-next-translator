@@ -24,7 +24,7 @@ async function main() {
 		type: argon2.argon2id,
 	});
 
-	const superAdmin = await prisma.user.upsert({
+	await prisma.user.upsert({
 		where: {
 			email,
 		},
@@ -37,12 +37,6 @@ async function main() {
 			password: passwordHash,
 			role: "SUPER_ADMIN",
 		},
-	});
-
-	console.log("Super admin:", {
-		id: superAdmin.id,
-		email: superAdmin.email,
-		role: superAdmin.role,
 	});
 }
 
