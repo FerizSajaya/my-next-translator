@@ -1,22 +1,22 @@
 import { z } from "zod";
 
 export const signInSchema = z.object({
-	email: z.email("ایمیل معتبر نیست").trim().toLowerCase(),
+	email: z.email("Invalid email address").trim().toLowerCase(),
 
-	password: z.string().min(1, "رمز عبور الزامی است"),
+	password: z.string().min(1, "Password is required"),
 });
 
 export const signUpSchema = z
 	.object({
-		name: z.string().trim().min(2, "نام باید حداقل ۲ کاراکتر باشد").max(50, "نام نمی‌تواند بیشتر از ۵۰ کاراکتر باشد"),
+		name: z.string().trim().min(2, "Name must be at least 2 characters").max(50, "Name cannot exceed 50 characters"),
 
-		email: z.email("ایمیل معتبر نیست").trim().toLowerCase(),
+		email: z.email("Invalid email address").trim().toLowerCase(),
 
-		password: z.string().min(8, "رمز عبور باید حداقل ۸ کاراکتر باشد").max(100, "رمز عبور نمی‌تواند بیشتر از ۱۰۰ کاراکتر باشد"),
+		password: z.string().min(8, "Password must be at least 8 characters").max(100, "Password cannot exceed 100 characters"),
 
-		confirmPassword: z.string().min(1, "تکرار رمز عبور الزامی است"),
+		confirmPassword: z.string().min(1, "Please confirm your password"),
 	})
 	.refine((data) => data.password === data.confirmPassword, {
 		path: ["confirmPassword"],
-		message: "تکرار رمز عبور با رمز عبور یکسان نیست",
+		message: "Passwords do not match",
 	});
