@@ -1,13 +1,5 @@
+import { UserProfileProps } from "@/src/types/auth.interface";
 import SignOutButton from "./SignOutButton";
-
-type UserProfileProps = {
-	user: {
-		id: number;
-		name: string;
-		email: string;
-		role: "USER" | "ADMIN";
-	};
-};
 
 export default function UserProfile({ user }: UserProfileProps) {
 	const avatarText = user.name.trim().charAt(0).toUpperCase();

@@ -1,17 +1,20 @@
 import { HomeIcon, LayoutDashboardIcon, TablePropertiesIcon } from "lucide-react";
-import { NavigatorItems } from "../types/navigator.interface";
+import { NavigatorItem } from "../types/navigator.interface";
 
-export const navigatorItems: NavigatorItems[] = [
+export const navigatorItems: NavigatorItem[] = [
 	{
 		id: 1,
 		href: "/",
 		title: "Home",
 	},
+
 	{
 		id: 2,
 		href: "/dashboard",
 		title: "Dashboard",
+		roles: ["ADMIN", "SUPER_ADMIN"],
 	},
+
 	{
 		id: 3,
 		href: "/translations",

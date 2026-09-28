@@ -1,10 +1,19 @@
+import { getCurrentUser } from "@/src/lib/auth/session";
 import { navigatorItems } from "@/src/enums/navigator.enum";
 import MobileNavigatorItem from "./MobileNavigatorItem";
 
-export default function MobileNavigator() {
+export default async function MobileNavigator() {
+	const user = await getCurrentUser();
+
+	const visibleNavigatorItems = navigatorItems.filter(({ roles }) => {
+		if (!roles) return true;
+
+		return user ? roles.includes(user.role) : false;
+	});
+
 	return (
-		<div className="flex md:hidden justify-center items-center gap-2 xs:gap-4 sm:gap-6 h-12">
-			{navigatorItems.map(({ id, href, title }) => (
+		<div className="hidden md:flex justify-center items-center gap-4 h-12 rounded-full bg-gray-100">
+			{visibleNavigatorItems.map(({ id, href, title }) => (
 				<MobileNavigatorItem key={id} href={href} title={title} />
 			))}
 		</div>
