@@ -1,16 +1,14 @@
 import { NextResponse } from "next/server";
-import { requireRoles } from "@/src/lib/auth/authorization";
+
+import { requireAuth } from "@/src/lib/auth/authorization";
 import { ForbiddenError, UnauthorizedError } from "@/src/lib/auth/errors";
-import { getUsers } from "@/src/lib/users/getUsers";
 
 export async function GET() {
 	try {
-		await requireRoles(["ADMIN", "SUPER_ADMIN"]);
-
-		const users = await getUsers();
+		const user = await requireAuth();
 
 		return NextResponse.json({
-			data: users,
+			data: user,
 		});
 	} catch (error) {
 		if (error instanceof UnauthorizedError) {
@@ -31,7 +29,7 @@ export async function GET() {
 			);
 		}
 
-		console.error("GET /api/admin/users error:", error);
+		console.error("GET /api/users/me error:", error);
 
 		return NextResponse.json(
 			{

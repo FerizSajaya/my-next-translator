@@ -13,10 +13,13 @@ export default function MobileNavigatorItem({ href, title }: MobileNavigatorItem
 	const Icon = navigatorIcons[title];
 
 	return (
-		<Link href={href} replace className={`flex flex-col justify-between items-center h-full py-1 px-2 rounded-md ${isLinkActive ? "bg-gray-200 font-bold" : ""}`}>
+		<Link
+			href={href}
+			replace
+			className={`flex flex-col justify-between items-center h-full py-1 px-2 rounded-md ${isLinkActive ? "bg-gray-200 font-semibold" : "font-normal"}`}>
 			<Icon size={isLinkActive ? 20 : 18} strokeWidth={isLinkActive ? 2 : 1.5} />
 
-			<span className="text-xs">{title}</span>
+			<span className="text-[10px]">{title}</span>
 		</Link>
 	);
 }

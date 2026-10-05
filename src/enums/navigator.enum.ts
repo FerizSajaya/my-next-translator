@@ -17,8 +17,8 @@ export const navigatorItems: NavigatorItem[] = [
 
 	{
 		id: 3,
-		href: "/translations",
-		title: "Translations",
+		href: "/words",
+		title: "Words",
 		roles: ["USER", "ADMIN", "SUPER_ADMIN"],
 	},
 ];
@@ -26,5 +26,5 @@ export const navigatorItems: NavigatorItem[] = [
 export const navigatorIcons = {
 	Home: HomeIcon,
 	Dashboard: LayoutDashboardIcon,
-	Translations: TablePropertiesIcon,
+	Words: TablePropertiesIcon,
 };

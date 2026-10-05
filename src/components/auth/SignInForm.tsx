@@ -31,6 +31,7 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 
 			if (!response.ok) {
 				console.error(result);
+				
 				return;
 			}
 
