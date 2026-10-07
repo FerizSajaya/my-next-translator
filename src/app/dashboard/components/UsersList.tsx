@@ -6,19 +6,17 @@ export default async function UsersList() {
 
 	return (
 		<section className="flex flex-col gap-2 w-full max-w-4xl px-2">
-			{users
-				.filter(({ role }) => role !== "SUPER_ADMIN")
-				.map(({ id, name, email, role }) => (
-					<div key={id} className="flex items-center justify-between rounded-lg border p-4">
-						<div>
-							<p className="font-medium">{name}</p>
+			{users.map(({ id, name, email, role }) => (
+				<div key={id} className="flex items-center justify-between rounded-lg border p-4">
+					<div>
+						<p className="font-medium">{name}</p>
 
-							<p className="text-sm text-gray-500">{email}</p>
-						</div>
-
-						{role !== "SUPER_ADMIN" && <UserRoleSelector userId={id} userRole={role} />}
+						<p className="text-sm text-gray-500">{email}</p>
 					</div>
-				))}
+
+					{role !== "SUPER_ADMIN" && <UserRoleSelector userId={id} userRole={role} />}
+				</div>
+			))}
 		</section>
 	);
 }

@@ -5,14 +5,14 @@ import { UserRoundCogIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function UserSettings() {
+export default function UserProfile() {
 	const pathname = usePathname();
 
-	const isLinkActive = pathname.startsWith("/settings");
+	const isLinkActive = pathname.startsWith("/profile");
 
 	return (
 		<Link
-			href={"/settings"}
+			href={"/profile"}
 			replace
 			className={cn(
 				"absolute top-1/2 -translate-y-1/2 inset-e-2 sm:inset-e-3 md:inset-e-4 p-2 border rounded-full",

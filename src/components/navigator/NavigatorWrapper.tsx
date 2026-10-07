@@ -1,6 +1,6 @@
 import DesktopNavigator from "./desktop_navigator/DesktopNavigator";
 import MobileNavigator from "./mobile_navigator/MobileNavigator";
-import UserSettings from "./UserSettings";
+import UserProfile from "./UserProfile";
 
 export default function NavigatorWrapper() {
 	return (
@@ -9,7 +9,7 @@ export default function NavigatorWrapper() {
 
 			<DesktopNavigator />
 
-			<UserSettings />
+			<UserProfile />
 		</div>
 	);
 }
