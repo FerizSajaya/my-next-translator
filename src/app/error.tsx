@@ -16,7 +16,7 @@ export default function Error({ reset }: ErrorProps) {
 	}, [router]);
 
 	return (
-		<main className="flex min-h-screen flex-col items-center justify-center gap-4 p-6 text-center">
+		<main className="flex flex-col items-center justify-center gap-4 size-full p-6 text-center">
 			<h1 className="text-2xl font-semibold">Something went wrong</h1>
 
 			<p className="text-sm text-gray-500">An unexpected error occurred. You will be redirected to the home page in 10 seconds.</p>
