@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema } from "@/src/lib/auth/validation";
 import { SignInFormProps, SignInInput } from "@/src/types/auth.interface";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 export default function SignInForm({ onSwitch }: SignInFormProps) {
+	const [showPassword, setShowPassword] = useState(false);
 	const router = useRouter();
 
 	const {
@@ -16,6 +19,8 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 	} = useForm<SignInInput>({
 		resolver: zodResolver(signInSchema),
 	});
+
+	const { email: emailError, password: passwordError } = errors;
 
 	const onSubmit = async (data: SignInInput) => {
 		try {
@@ -31,7 +36,7 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 
 			if (!response.ok) {
 				console.error(result);
-				
+
 				return;
 			}
 
@@ -57,15 +62,25 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 
 					<input id="email" type="email" {...register("email")} className="mt-1 w-full rounded-md border p-2" />
 
-					{errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
+					{emailError && <p className="mt-1 text-sm text-red-500">{emailError.message}</p>}
 				</div>
 
 				<div>
 					<label htmlFor="password">Password</label>
 
-					<input id="password" type="password" {...register("password")} className="mt-1 w-full rounded-md border p-2" />
+					<div className="relative mt-1">
+						<input id="password" type={showPassword ? "text" : "password"} {...register("password")} className="w-full p-2 pe-10 border rounded-md" />
 
-					{errors.password && <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>}
+						<button
+							type="button"
+							onClick={() => setShowPassword((prev) => !prev)}
+							className="absolute top-1/2 -translate-y-1/2 inset-e-2 text-muted-foreground"
+							aria-label={showPassword ? "Hide password" : "Show password"}>
+							{showPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
+						</button>
+					</div>
+
+					{passwordError && <p className="mt-1 text-sm text-red-500">{passwordError.message}</p>}
 				</div>
 
 				<button type="submit" disabled={isSubmitting} className="w-full rounded-md border p-2">

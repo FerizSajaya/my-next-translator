@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,14 +8,16 @@ import { signUpSchema } from "@/src/lib/auth/validation";
 import { SignUpFormProps, SignUpInput } from "@/src/types/auth.interface";
 import { useMutation } from "@tanstack/react-query";
 import { signupUser } from "@/src/lib/users/signupUser";
+import { toast } from "sonner";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 export default function SignUpForm({ onSwitch }: SignUpFormProps) {
+	const [showPassword, setShowPassword] = useState(false);
 	const router = useRouter();
 
 	const {
 		register,
 		handleSubmit,
-		setError,
 		formState: { errors },
 	} = useForm<SignUpInput>({
 		resolver: zodResolver(signUpSchema),
@@ -25,10 +28,12 @@ export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 	const { mutate: handleUserSignup, isPending } = useMutation({
 		mutationFn: signupUser,
 		onSuccess: () => {
+			toast.success("User signup successfully!");
+
 			router.refresh();
 		},
-		onError: ({ message }) => {
-			setError("root", { type: "server", message });
+		onError: (error) => {
+			toast.error(error instanceof Error ? error.message : "Failed to signup user!");
 		},
 	});
 
@@ -64,7 +69,17 @@ export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 				<div>
 					<label htmlFor="password">Password</label>
 
-					<input id="password" type="password" {...register("password")} className="w-full mt-1 p-2 border rounded-md" />
+					<div className="relative mt-1">
+						<input id="password" type={showPassword ? "text" : "password"} {...register("password")} className="w-full p-2 pe-10 border rounded-md" />
+
+						<button
+							type="button"
+							onClick={() => setShowPassword((prev) => !prev)}
+							className="absolute top-1/2 -translate-y-1/2 inset-e-2 text-muted-foreground"
+							aria-label={showPassword ? "Hide password" : "Show password"}>
+							{showPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
+						</button>
+					</div>
 
 					{passwordError && <p className="mt-1 text-sm text-red-500">{passwordError.message}</p>}
 				</div>
@@ -72,7 +87,17 @@ export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 				<div>
 					<label htmlFor="confirmPassword">Confirm password</label>
 
-					<input id="confirmPassword" type="password" {...register("confirmPassword")} className="w-full mt-1 p-2 border rounded-md" />
+					<div className="relative mt-1">
+						<input id="confirmPassword" type={showPassword ? "text" : "password"} {...register("confirmPassword")} className="w-full p-2 pe-10 border rounded-md" />
+
+						<button
+							type="button"
+							onClick={() => setShowPassword((prev) => !prev)}
+							className="absolute top-1/2 -translate-y-1/2 inset-e-2 text-muted-foreground"
+							aria-label={showPassword ? "Hide confirm password" : "Show confirm password"}>
+							{showPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
+						</button>
+					</div>
 
 					{confirmPasswordError && <p className="mt-1 text-sm text-red-500">{confirmPasswordError.message}</p>}
 				</div>
