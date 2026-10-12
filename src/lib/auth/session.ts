@@ -11,6 +11,7 @@ function hashSessionToken(token: string) {
 
 export async function createSession(userId: number) {
 	const token = randomBytes(32).toString("hex");
+	
 	const sessionId = hashSessionToken(token);
 
 	const expiresAt = new Date(Date.now() + SESSION_DURATION);

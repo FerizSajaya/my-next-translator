@@ -40,7 +40,7 @@ export async function POST(request: Request) {
 			);
 		}
 
-		const passwordMatches = await verifyPassword(password, user.password);
+		const passwordMatches = await verifyPassword(user.password, password);
 
 		if (!passwordMatches) {
 			return NextResponse.json(

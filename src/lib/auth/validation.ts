@@ -8,15 +8,15 @@ export const signInSchema = z.object({
 
 export const signUpSchema = z
 	.object({
-		name: z.string().trim().min(2, "Name must be at least 2 characters").max(50, "Name cannot exceed 50 characters"),
+		name: z.string().trim().min(2, "Name must be at least 2 characters!").max(20, "Name cannot exceed 20 characters!"),
 
-		email: z.email("Invalid email address").trim().toLowerCase(),
+		email: z.email("Invalid email address!").trim().toLowerCase(),
 
-		password: z.string().min(8, "Password must be at least 8 characters").max(100, "Password cannot exceed 100 characters"),
+		password: z.string().min(8, "Password must be at least 8 characters!").max(20, "Password cannot exceed 20 characters!"),
 
-		confirmPassword: z.string().min(1, "Please confirm your password"),
+		confirmPassword: z.string().min(8, "Please confirm your password!"),
 	})
-	.refine((data) => data.password === data.confirmPassword, {
+	.refine(({ password, confirmPassword }) => password === confirmPassword, {
 		path: ["confirmPassword"],
-		message: "Passwords do not match",
+		message: "Passwords do not match!",
 	});

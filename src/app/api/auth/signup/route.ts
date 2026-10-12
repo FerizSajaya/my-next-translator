@@ -8,24 +8,24 @@ export async function POST(request: Request) {
 	try {
 		const body = await request.json();
 
-		const result = signUpSchema.safeParse(body);
+		const { data, success, error } = signUpSchema.safeParse(body);
 
-		if (!result.success) {
+		if (!success) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: "Invalid input.",
-					errors: result.error.flatten().fieldErrors,
+					message: "Invalid input!",
+					errors: error.flatten().fieldErrors,
 				},
 				{ status: 400 },
 			);
 		}
 
-		const { name, email, password } = result.data;
+		const { name: nameInput, email: emailInput, password: passwordInput } = data;
 
 		const existingUser = await prisma.user.findUnique({
 			where: {
-				email,
+				email: emailInput,
 			},
 		});
 
@@ -33,48 +33,51 @@ export async function POST(request: Request) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: "An account with this email already exists.",
+					message: "An account with this email already exists!",
 				},
 				{ status: 409 },
 			);
 		}
 
-		const passwordHash = await hashPassword(password);
+		const passwordHash = await hashPassword(passwordInput);
 
-		const user = await prisma.$transaction(async (tx) => {
-			const newUser = await tx.user.create({
+		const {
+			id: userId,
+			name: userName,
+			email: userEmail,
+			role: userRole,
+		} = await prisma.$transaction(async (db) => {
+			return await db.user.create({
 				data: {
-					name,
-					email,
+					name: nameInput,
+					email: emailInput,
 					password: passwordHash,
 				},
 			});
-
-			return newUser;
 		});
 
-		await createSession(user.id);
+		await createSession(userId);
 
 		return NextResponse.json(
 			{
 				success: true,
-				message: "Account created successfully.",
+				message: "Account created successfully!",
 				user: {
-					id: user.id,
-					name: user.name,
-					email: user.email,
-					role: user.role,
+					id: userId,
+					name: userName,
+					email: userEmail,
+					role: userRole,
 				},
 			},
 			{ status: 201 },
 		);
 	} catch (error) {
-		console.error("Signup error:", error);
+		console.error("Signup error: ", error);
 
 		return NextResponse.json(
 			{
 				success: false,
-				message: "Something went wrong. Please try again.",
+				message: "Something went wrong... Please try again!",
 			},
 			{ status: 500 },
 		);
