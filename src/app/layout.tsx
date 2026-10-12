@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono, Geist } from "next/font/google";
 import { cn } from "cn";
-import NavigatorWrapper from "../components/navigator/NavigatorWrapper";
+import NavigatorWrapper from "@/src/components/navigator/NavigatorWrapper";
 import { Toaster } from "sonner";
+import QueryProvider from "@/src/providers/QueryProvider";
 
 import "./globals.css";
 
@@ -29,11 +30,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 	return (
 		<html lang="en" dir="ltr" className={cn("antialiased", geist.variable, roboto.variable, roboto_mono.variable, "font-sans")}>
 			<body className="flex flex-col md:flex-col-reverse w-screen h-screen overflow-hidden">
-				{children}
+				<QueryProvider>
+					{children}
 
-				<Toaster position="top-center" richColors closeButton />
+					<Toaster position="top-center" richColors closeButton />
 
-				<NavigatorWrapper />
+					<NavigatorWrapper />
+				</QueryProvider>
 			</body>
 		</html>
 	);
