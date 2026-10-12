@@ -13,9 +13,9 @@ export async function updateUserRole(userId: number, userRole: AssignableRole) {
 		select: { role: true },
 	});
 
-	if (!targetUser) throw new Error("User not found.");
+	if (!targetUser) throw new Error("User not found!");
 
-	if (targetUser.role === "SUPER_ADMIN") throw new Error("SUPER_ADMIN role cannot be changed.");
+	if (targetUser.role === "SUPER_ADMIN") throw new Error("SUPER_ADMIN role cannot be changed!");
 
 	await prisma.user.update({
 		where: { id: userId },

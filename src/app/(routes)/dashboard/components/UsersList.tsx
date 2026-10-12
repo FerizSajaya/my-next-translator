@@ -1,5 +1,6 @@
 import { getUsers } from "@/src/lib/users/getUsers";
 import UserRoleSelector from "./UserRoleSelector";
+import { DeleteUserModal } from "@/src/components/modals/DeleteUserModal";
 
 export default async function UsersList() {
 	const users = await getUsers();
@@ -9,12 +10,16 @@ export default async function UsersList() {
 			{users.map(({ id, name, email, role }) => (
 				<div key={id} className="flex items-center justify-between rounded-lg border p-4">
 					<div>
-						<p className="font-medium">{name}</p>
+						<p className="truncate font-medium">{name}</p>
 
-						<p className="text-sm text-gray-500">{email}</p>
+						<p className="truncate text-sm text-gray-500">{email}</p>
 					</div>
 
-					{role !== "SUPER_ADMIN" && <UserRoleSelector userId={id} userRole={role} />}
+					<div className="flex justify-between items-center gap-2">
+						{role !== "SUPER_ADMIN" && <UserRoleSelector userId={id} userRole={role} />}
+
+						<DeleteUserModal userId={id} />
+					</div>
 				</div>
 			))}
 		</section>
