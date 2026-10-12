@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { LoaderIcon, Trash2Icon } from "lucide-react";
+import { LoaderCircleIcon, Trash2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { deleteUser } from "@/src/actions/users";
@@ -68,7 +68,7 @@ export function DeleteUserModal({ userId, userName, userEmail }: DeleteUserModal
 				<DialogFooter className="flex flex-row justify-start items-center gap-2">
 					<Button variant="destructive" onClick={() => handleDeleteUser(userId)} disabled={isPending}>
 						Delete
-						{isPending && <LoaderIcon data-icon="inline-end" className="animate-spin" />}
+						{isPending && <LoaderCircleIcon data-icon="inline-end" className="animate-spin" />}
 					</Button>
 
 					<DialogClose
