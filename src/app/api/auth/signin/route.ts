@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-
 import { prisma } from "@/src/lib/prisma";
 import { verifyPassword } from "@/src/lib/auth/password";
 import { signInSchema } from "@/src/lib/auth/validation";
@@ -9,68 +8,70 @@ export async function POST(request: Request) {
 	try {
 		const body = await request.json();
 
-		const result = signInSchema.safeParse(body);
+		const { data, success, error } = signInSchema.safeParse(body);
 
-		if (!result.success) {
+		if (!success) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: "Invalid input.",
-					errors: result.error.flatten().fieldErrors,
+					message: "Invalid input!",
+					errors: error.flatten().fieldErrors,
 				},
 				{ status: 400 },
 			);
 		}
 
-		const { email, password } = result.data;
+		const { email: emailInput, password: passwordInput } = data;
 
-		const user = await prisma.user.findUnique({
+		const existingUser = await prisma.user.findUnique({
 			where: {
-				email,
+				email: emailInput,
 			},
 		});
 
-		if (!user) {
+		if (!existingUser) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: "Invalid email or password.",
+					message: "Invalid email or password!",
 				},
 				{ status: 401 },
 			);
 		}
 
-		const passwordMatches = await verifyPassword(user.password, password);
+		const { id: userId, name: userName, password: userPassword, email: userEmail, role: userRole } = existingUser;
+
+		const passwordMatches = await verifyPassword(userPassword, passwordInput);
 
 		if (!passwordMatches) {
 			return NextResponse.json(
 				{
 					success: false,
-					message: "Invalid email or password.",
+					message: "Invalid email or password!",
 				},
 				{ status: 401 },
 			);
 		}
 
-		await createSession(user.id);
+		await createSession(userId);
 
 		return NextResponse.json({
 			success: true,
-			message: "Signed in successfully.",
+			message: "Signed in successfully!",
 			user: {
-				id: user.id,
-				name: user.name,
-				email: user.email,
-				role: user.role,
+				id: userId,
+				name: userName,
+				email: userEmail,
+				role: userRole,
 			},
 		});
 	} catch (error) {
-		console.error("Sign in error:", error);
+		console.error("Sign in error: ", error);
 
 		return NextResponse.json(
 			{
 				success: false,
-				message: "Something went wrong. Please try again.",
+				message: "Something went wrong... Please try again!",
 			},
 			{ status: 500 },
 		);

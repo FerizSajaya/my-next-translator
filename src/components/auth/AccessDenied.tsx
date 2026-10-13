@@ -10,11 +10,11 @@ export default function AccessDenied({ type }: AccessDeniedProps) {
 
 	useEffect(() => {
 		if (type === "UNAUTHORIZED") {
-			toast.error("Authentication required.", {
+			toast.error("Authentication required!", {
 				description: "Please sign in to access this page.",
 			});
 		} else {
-			toast.error("Access denied.", {
+			toast.error("Access denied!", {
 				description: "You do not have permission to access this page.",
 			});
 		}

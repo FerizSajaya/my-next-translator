@@ -9,11 +9,10 @@ import { SignUpFormProps, SignUpInput } from "@/src/types/auth.interface";
 import { useMutation } from "@tanstack/react-query";
 import { signupUser } from "@/src/lib/users/signupUser";
 import { toast } from "sonner";
-import { EyeIcon, EyeOffIcon, LoaderCircleIcon, LoaderIcon } from "lucide-react";
-import { Field, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSeparator, FieldSet } from "@/components/ui/field";
+import { EyeIcon, EyeOffIcon, LoaderCircleIcon } from "lucide-react";
+import { Field, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSeparator } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { email } from "zod";
 
 export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 	const [showPassword, setShowPassword] = useState(false);
@@ -38,12 +37,12 @@ export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 	const { mutate: handleUserSignup, isPending } = useMutation({
 		mutationFn: signupUser,
 		onSuccess: () => {
-			toast.success("User signedup successfully!");
+			toast.success("Signed up successfully!");
 
 			router.refresh();
 		},
 		onError: (error) => {
-			toast.error(error instanceof Error ? error.message : "Failed to signup user!");
+			toast.error(error instanceof Error ? error.message : "Failed to signup!");
 		},
 	});
 
@@ -155,9 +154,9 @@ export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 
 			<div className="text-center text-sm">
 				Already have account?{" "}
-				<button type="button" onClick={onSwitch} className="font-medium underline">
+				<Button variant="ghost" type="button" onClick={onSwitch} className="p-0 font-medium underline">
 					Signin
-				</button>
+				</Button>
 			</div>
 		</div>
 	);
