@@ -34,7 +34,7 @@ export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 
 	const { name: nameError, email: emailError, password: passwordError, confirmPassword: confirmPasswordError } = errors;
 
-	const { mutate: handleUserSignup, isPending } = useMutation({
+	const { mutate: handleSignupUser, isPending } = useMutation({
 		mutationFn: signupUser,
 		onSuccess: () => {
 			toast.success("Signed up successfully!");
@@ -47,7 +47,7 @@ export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 	});
 
 	const onSubmit = async (data: SignUpInput) => {
-		handleUserSignup(data);
+		handleSignupUser(data);
 	};
 
 	const handleCancel = () => {

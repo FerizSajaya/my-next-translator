@@ -32,7 +32,7 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 
 	const { email: emailError, password: passwordError } = errors;
 
-	const { mutate: handleUserSignin, isPending } = useMutation({
+	const { mutate: handleSigninUser, isPending } = useMutation({
 		mutationFn: signinUser,
 		onSuccess: () => {
 			toast.success("Signed in successfully!");
@@ -45,7 +45,7 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 	});
 
 	const onSubmit = async (data: SignInInput) => {
-		handleUserSignin(data);
+		handleSigninUser(data);
 	};
 
 	const handleCancel = () => {
