@@ -10,20 +10,20 @@ import { signoutUser } from "@/src/actions/users/signoutUser";
 export default function SignOutButton() {
 	const router = useRouter();
 
-	const { mutate: handleSignOut, isPending } = useMutation({
+	const { mutate: handleSignoutUser, isPending } = useMutation({
 		mutationFn: signoutUser,
 		onSuccess: () => {
-			toast.success("Signed out successfully.");
+			toast.success("Signed out successfully!");
 
 			router.refresh();
 		},
 		onError: (error) => {
-			toast.error(error instanceof Error ? error.message : "Failed to sign out.");
+			toast.error(error instanceof Error ? error.message : "Failed to sign out!");
 		},
 	});
 
 	return (
-		<Button variant="outline" type="button" disabled={isPending} onClick={async () => handleSignOut}>
+		<Button variant="outline" type="button" disabled={isPending} onClick={() => handleSignoutUser()}>
 			Sign out
 			{isPending && <LoaderCircleIcon data-icon="inline-end" className="animate-spin" />}
 		</Button>
