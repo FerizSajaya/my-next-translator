@@ -11,7 +11,7 @@ function hashSessionToken(token: string) {
 
 export async function createSession(userId: number) {
 	const token = randomBytes(32).toString("hex");
-	
+
 	const sessionId = hashSessionToken(token);
 
 	const expiresAt = new Date(Date.now() + SESSION_DURATION);
@@ -86,11 +86,22 @@ export async function deleteSession() {
 
 	const sessionId = hashSessionToken(token);
 
-	await prisma.session.deleteMany({
+	const session = await prisma.session.findUnique({
 		where: {
 			id: sessionId,
 		},
+		select: {
+			userId: true,
+		},
 	});
+
+	if (session) {
+		await prisma.session.deleteMany({
+			where: {
+				userId: session.userId,
+			},
+		});
+	}
 
 	cookieStore.delete(SESSION_COOKIE_NAME);
 }
