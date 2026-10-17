@@ -7,14 +7,12 @@ export const navigatorItems: NavigatorItem[] = [
 		href: "/",
 		title: "Home",
 	},
-
 	{
 		id: 2,
 		href: "/dashboard",
 		title: "Dashboard",
 		roles: ["ADMIN", "SUPER_ADMIN"],
 	},
-
 	{
 		id: 3,
 		href: "/words",
