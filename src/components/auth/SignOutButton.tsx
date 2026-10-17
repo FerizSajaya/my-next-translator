@@ -1,31 +1,31 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { LoaderCircleIcon } from "lucide-react";
+import { signoutUser } from "@/src/actions/users/signoutUser";
 
 export default function SignOutButton() {
-	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 
-	const handleSignOut = async () => {
-		try {
-			setIsLoading(true);
-
-			const response = await fetch("/api/auth/signout", { method: "POST" });
-
-			if (!response.ok) throw new Error("Failed to sign out.");
+	const { mutate: handleSignOut, isPending } = useMutation({
+		mutationFn: signoutUser,
+		onSuccess: () => {
+			toast.success("Signed out successfully.");
 
 			router.refresh();
-		} catch (error) {
-			console.error("Sign out error:", error);
-
-			setIsLoading(false);
-		}
-	};
+		},
+		onError: (error) => {
+			toast.error(error instanceof Error ? error.message : "Failed to sign out.");
+		},
+	});
 
 	return (
-		<button type="button" onClick={handleSignOut} disabled={isLoading} className="rounded-md border px-3 py-2 text-sm">
-			{isLoading ? "Signing out..." : "Sign out"}
-		</button>
+		<Button variant="outline" type="button" disabled={isPending} onClick={async () => handleSignOut}>
+			Sign out
+			{isPending && <LoaderCircleIcon data-icon="inline-end" className="animate-spin" />}
+		</Button>
 	);
 }

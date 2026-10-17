@@ -7,12 +7,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema } from "@/src/lib/auth/validation";
 import { SignUpFormProps, SignUpInput } from "@/src/types/auth.interface";
 import { useMutation } from "@tanstack/react-query";
-import { signupUser } from "@/src/lib/users/signupUser";
 import { toast } from "sonner";
 import { EyeIcon, EyeOffIcon, LoaderCircleIcon } from "lucide-react";
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSeparator } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { signupUser } from "@/src/actions/users/signupUser";
 
 export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 	const [showPassword, setShowPassword] = useState(false);

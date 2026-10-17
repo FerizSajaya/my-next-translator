@@ -5,9 +5,9 @@ import { useMutation } from "@tanstack/react-query";
 import { LoaderCircleIcon, Trash2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { deleteUser } from "@/src/actions/users";
 import { toast } from "sonner";
 import { DeleteUserModalProps } from "@/src/types/modals.interface";
+import { deleteUser } from "@/src/actions/users/deleteUser";
 
 export function DeleteUserModal({ userId, userName, userEmail }: DeleteUserModalProps) {
 	const [open, setOpen] = useState(false);

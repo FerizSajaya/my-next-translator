@@ -1,10 +1,10 @@
 "use client";
 
 import { useTransition } from "react";
-import { updateUserRole } from "@/src/actions/users";
 import { AssignableRole, UserRoleSelectorProps } from "@/src/types/dashboard.interface";
 import { ButtonGroup, ButtonGroupSeparator } from "@/components/ui/button-group";
 import { Button } from "@/components/ui/button";
+import { updateUserRole } from "@/src/actions/users/updateUserRole";
 
 export default function UserRoleSelector({ userId, userRole }: UserRoleSelectorProps) {
 	const [isPending, startTransition] = useTransition();

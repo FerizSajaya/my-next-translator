@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { signinUser } from "@/src/lib/users/signinUser";
+import { signinUser } from "@/src/actions/users/signinUser";
 
 export default function SignInForm({ onSwitch }: SignInFormProps) {
 	const [showPassword, setShowPassword] = useState(false);
