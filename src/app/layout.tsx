@@ -4,6 +4,7 @@ import { cn } from "cn";
 import NavigatorWrapper from "@/src/components/navigator/NavigatorWrapper";
 import { Toaster } from "sonner";
 import QueryProvider from "@/src/providers/QueryProvider";
+import { ThemeProvider } from "@/src/components/theme-provider";
 
 import "./globals.css";
 
@@ -31,11 +32,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 		<html lang="en" dir="ltr" className={cn("antialiased", geist.variable, roboto.variable, roboto_mono.variable, "font-sans")}>
 			<body className="flex flex-col md:flex-col-reverse w-screen h-screen overflow-hidden">
 				<QueryProvider>
-					{children}
+					<ThemeProvider>
+						{children}
 
-					<Toaster position="top-center" richColors closeButton />
+						<Toaster position="top-center" richColors closeButton />
 
-					<NavigatorWrapper />
+						<NavigatorWrapper />
+					</ThemeProvider>
 				</QueryProvider>
 			</body>
 		</html>

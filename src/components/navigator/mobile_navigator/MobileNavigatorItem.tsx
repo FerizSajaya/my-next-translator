@@ -1,9 +1,9 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { navigatorIcons } from "@/src/enums/navigator.enum";
 import { MobileNavigatorItemProps } from "@/src/types/navigator.interface";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export default function MobileNavigatorItem({ href, title }: MobileNavigatorItemProps) {
 	const pathname = usePathname();
@@ -16,7 +16,7 @@ export default function MobileNavigatorItem({ href, title }: MobileNavigatorItem
 		<Link
 			href={href}
 			replace
-			className={`flex flex-col justify-between items-center h-full py-1 px-2 rounded-md ${isLinkActive ? "bg-gray-200 font-semibold" : "font-normal"}`}>
+			className={`flex flex-col justify-between items-center h-full py-1 px-2 rounded-md ${isLinkActive ? "bg-gray-200 dark:bg-gray-900 font-semibold" : "font-normal"}`}>
 			<Icon size={isLinkActive ? 20 : 18} strokeWidth={isLinkActive ? 2 : 1.5} />
 
 			<span className="text-[10px]">{title}</span>

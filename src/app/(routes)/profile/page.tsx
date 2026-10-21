@@ -1,8 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AuthForm from "@/src/components/auth/AuthForm";
-import UserProfile from "@/src/components/auth/UserProfile";
+import UserProfile from "@/src/app/(routes)/profile/components/UserProfile";
 import { profileTabs } from "@/src/enums/profile.enum";
 import { getCurrentUser } from "@/src/lib/auth/auth";
+import UserSettings from "./components/UserSettings";
 
 export default async function ProfilePage() {
 	const user = await getCurrentUser();
@@ -30,7 +31,7 @@ export default async function ProfilePage() {
 					</TabsContent>
 
 					<TabsContent value="settings">
-						<>Settings tab</>
+						<UserSettings />
 					</TabsContent>
 				</Tabs>
 			) : (
