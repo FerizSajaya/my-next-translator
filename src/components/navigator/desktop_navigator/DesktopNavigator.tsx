@@ -5,7 +5,9 @@ import DesktopNavigatorItem from "./DesktopNavigatorItem";
 export default async function DesktopNavigator() {
 	const user = await getCurrentUser();
 
-	const visibleNavigatorItems = navigatorItems.filter(({ roles }) => {
+	const visibleNavigatorItems = navigatorItems.filter(({ href, roles }) => {
+		if (href === "/profile") return false
+		
 		if (!roles) return true;
 
 		return user ? roles.includes(user.role) : false;

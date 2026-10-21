@@ -1,5 +1,5 @@
 import { NavigatorItem } from "../types/navigator.interface";
-import { HomeIcon, LayoutDashboardIcon, TablePropertiesIcon } from "lucide-react";
+import { HomeIcon, LayoutDashboardIcon, TablePropertiesIcon, UserRoundCogIcon } from "lucide-react";
 
 export const navigatorItems: NavigatorItem[] = [
 	{
@@ -17,7 +17,11 @@ export const navigatorItems: NavigatorItem[] = [
 		id: 3,
 		href: "/words",
 		title: "Words",
-		roles: ["USER", "ADMIN", "SUPER_ADMIN"],
+	},
+	{
+		id: 4,
+		href: "/profile",
+		title: "Profile",
 	},
 ];
 
@@ -25,4 +29,5 @@ export const navigatorIcons = {
 	Home: HomeIcon,
 	Dashboard: LayoutDashboardIcon,
 	Words: TablePropertiesIcon,
+	Profile: UserRoundCogIcon,
 };

@@ -1,8 +1,8 @@
 import { Role } from "@/src/generated/prisma/client";
 
-export type NavigatorItemAddress = "/" | "/dashboard" | "/words";
+export type NavigatorItemAddress = "/" | "/dashboard" | "/words" | "/profile";
 
-export type NavigatorItemTitle = "Home" | "Dashboard" | "Words";
+export type NavigatorItemTitle = "Home" | "Dashboard" | "Words" | "Profile";
 
 export interface NavigatorItem {
 	id: number;
