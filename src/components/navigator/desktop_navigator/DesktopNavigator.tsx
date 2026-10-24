@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { getCurrentUser } from "@/src/lib/auth/auth";
-import { navigatorIcons, navigatorItems } from "@/src/enums/navigator.enum";
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import { navigatorItems } from "@/src/enums/navigator.enum";
+import { NavigationMenu, NavigationMenuList } from "@/components/ui/navigation-menu";
+import DesktopNavigatorItem from "./DesktopNavigatorItem";
 
 export default async function DesktopNavigator() {
 	const user = await getCurrentUser();
@@ -15,29 +15,12 @@ export default async function DesktopNavigator() {
 	});
 
 	return (
-		<div className="hidden md:flex justify-center items-center gap-4 h-12 rounded-xl bg-gray-200">
-			<NavigationMenu>
-				<NavigationMenuList>
-					{visibleNavigatorItems.map(({ id, href, title }) => {
-						const Icon = navigatorIcons[title];
-
-						return (
-							<NavigationMenuItem key={id}>
-								<NavigationMenuLink
-									className={navigationMenuTriggerStyle()}
-									render={
-										<Link href={href} replace className={`flex justify-center items-center gap-2 h-full mx-2 py-1 px-4 rounded-full`}>
-											<Icon size={20} strokeWidth={2} />
-
-											<span className="text-base">{title}</span>
-										</Link>
-									}
-								/>
-							</NavigationMenuItem>
-						);
-					})}
-				</NavigationMenuList>
-			</NavigationMenu>
-		</div>
+		<NavigationMenu className="hidden md:flex justify-center items-center h-12 border rounded-lg border-gray-200">
+			<NavigationMenuList>
+				{visibleNavigatorItems.map(({ id, href, title }) => (
+					<DesktopNavigatorItem key={id} href={href} title={title} />
+				))}
+			</NavigationMenuList>
+		</NavigationMenu>
 	);
 }

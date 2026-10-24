@@ -10,3 +10,13 @@ export interface NavigatorItem {
 	title: NavigatorItemTitle;
 	roles?: Role[];
 }
+
+export interface MobileNavigatorItemProps {
+	href: NavigatorItemAddress;
+	title: NavigatorItemTitle;
+}
+
+export interface DesktopNavigatorItemProps {
+	href: NavigatorItemAddress;
+	title: NavigatorItemTitle;
+}
