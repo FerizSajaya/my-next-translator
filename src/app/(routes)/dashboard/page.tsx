@@ -3,6 +3,7 @@ import { requireRoles } from "@/src/lib/auth/authorization";
 import { ForbiddenError, UnauthorizedError } from "@/src/lib/auth/errors";
 import UsersList from "./components/UsersList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { dashboardTabs } from "@/src/enums/dashboard.enum";
 
 export default async function DashboardPage() {
 	try {
@@ -10,17 +11,23 @@ export default async function DashboardPage() {
 
 		const { role } = user;
 
-		const isSuperAdmin = role === "SUPER_ADMIN";
+		const isUserSuperAdmin = role === "SUPER_ADMIN";
+
+		const visibleTabs = dashboardTabs.filter(({ roles }) => {
+			if (!roles) return true;
+
+			return user ? roles.includes(user.role) : false;
+		});
 
 		return (
 			<main className="flex flex-col flex-1 justify-start items-center size-full py-2">
 				<Tabs defaultValue="words" className="size-full">
 					<TabsList variant="line" className="w-full border-b border-gray-200">
-						<TabsTrigger value="words">Words</TabsTrigger>
-
-						<TabsTrigger value="payments">Payments</TabsTrigger>
-
-						{isSuperAdmin && <TabsTrigger value="users">Users</TabsTrigger>}
+						{visibleTabs.map(({ id, value, title }) => (
+							<TabsTrigger key={id} value={value}>
+								{title}
+							</TabsTrigger>
+						))}
 					</TabsList>
 
 					<TabsContent value="words">
@@ -31,7 +38,7 @@ export default async function DashboardPage() {
 						<>payments tab</>
 					</TabsContent>
 
-					{isSuperAdmin && (
+					{isUserSuperAdmin && (
 						<TabsContent value="users">
 							<UsersList />
 						</TabsContent>
