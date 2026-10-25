@@ -17,28 +17,24 @@ export default function HomePage() {
 					</div>
 
 					<div className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
-						{features.map((feature) => {
-							const Icon = feature.icon;
+						{features.map(({ icon: Icon, title, description, color }) => (
+							<article
+								key={title}
+								className="group rounded-2xl border border-slate-200/80 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-950/5">
+								<span className={`flex size-12 items-center justify-center rounded-xl ${color}`}>
+									<Icon className="size-6" />
+								</span>
 
-							return (
-								<article
-									key={feature.title}
-									className="group rounded-2xl border border-slate-200/80 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-950/5">
-									<span className={`flex size-12 items-center justify-center rounded-xl ${feature.color}`}>
-										<Icon className="size-6" />
-									</span>
+								<h3 className="mt-5 text-lg font-bold">{title}</h3>
 
-									<h3 className="mt-5 text-lg font-bold">{feature.title}</h3>
+								<p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
 
-									<p className="mt-3 text-sm leading-7 text-slate-600">{feature.description}</p>
-
-									<div className="mt-5 flex items-center gap-1 text-sm font-semibold text-indigo-600 opacity-0 transition group-hover:opacity-100">
-										Learn more
-										<ArrowUpRightIcon className="size-4" />
-									</div>
-								</article>
-							);
-						})}
+								<div className="mt-5 flex items-center gap-1 text-sm font-semibold text-indigo-600 opacity-0 transition group-hover:opacity-100">
+									Learn more
+									<ArrowUpRightIcon className="size-4" />
+								</div>
+							</article>
+						))}
 					</div>
 				</div>
 			</section>
@@ -64,16 +60,14 @@ export default function HomePage() {
 						</div>
 
 						<div className="space-y-4">
-							{steps.map((step) => (
-								<article key={step.number} className="flex gap-5 rounded-2xl border border-slate-200 p-5 sm:gap-6 sm:p-6">
-									<span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-sm font-bold text-indigo-600">
-										{step.number}
-									</span>
+							{steps.map(({ number, title, description }) => (
+								<article key={title} className="flex gap-5 rounded-2xl border border-slate-200 p-5 sm:gap-6 sm:p-6">
+									<span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-sm font-bold text-indigo-600">{number}</span>
 
 									<div>
-										<h3 className="font-bold">{step.title}</h3>
+										<h3 className="font-bold">{title}</h3>
 
-										<p className="mt-2 text-sm leading-6 text-slate-600">{step.description}</p>
+										<p className="mt-2 text-sm leading-6 text-slate-600">{description}</p>
 									</div>
 								</article>
 							))}
