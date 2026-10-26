@@ -1,4 +1,4 @@
-import { features } from "@/src/enums/home.enums";
+import { features } from "@/src/enums/home.enum";
 import { test, expect } from "@playwright/test";
 
 test("home page renders and navigation works", async ({ page }) => {

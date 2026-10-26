@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { features, steps } from "@/src/enums/home.enums";
+import { features, steps } from "@/src/enums/home.enum";
 import HomePage from "./page";
 
 describe("HomePage", () => {

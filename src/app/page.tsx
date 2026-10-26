@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRightIcon, ArrowUpRightIcon, Globe2Icon, LanguagesIcon } from "lucide-react";
-import { features, steps } from "../enums/home.enums";
+import { features, steps } from "../enums/home.enum";
 
 export default function HomePage() {
 	return (
