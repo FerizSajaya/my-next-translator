@@ -16,13 +16,13 @@ test("home page renders and navigation works", async ({ page }) => {
 
 	await expect(
 		page.getByRole("link", {
-			name: /get started today/i,
+			name: "Get started today",
 		}),
 	).toHaveAttribute("href", "/profile");
 
 	await expect(
 		page.getByRole("link", {
-			name: /get started for free/i,
+			name: "Get started for free",
 		}),
 	).toHaveAttribute("href", "/words");
 });

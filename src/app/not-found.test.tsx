@@ -6,6 +6,8 @@ describe("NotFound", () => {
 	it("renders the main sections", () => {
 		render(<NotFound />);
 
+		expect(screen.getByRole("main")).toBeInTheDocument();
+
 		expect(screen.getByText("404")).toBeInTheDocument();
 
 		expect(
@@ -22,7 +24,7 @@ describe("NotFound", () => {
 
 		expect(
 			screen.getByRole("link", {
-				name: /go to home/i,
+				name: "Go to home",
 			}),
 		).toHaveAttribute("href", "/");
 	});

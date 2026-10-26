@@ -15,7 +15,7 @@ describe("HomePage", () => {
 
 		expect(
 			screen.getByRole("heading", {
-				name: /endless possibilities/i,
+				name: "Endless possibilities",
 			}),
 		).toBeInTheDocument();
 
@@ -31,13 +31,13 @@ describe("HomePage", () => {
 
 		expect(
 			screen.getByRole("link", {
-				name: /get started today/i,
+				name: "Get started today",
 			}),
 		).toHaveAttribute("href", "/profile");
 
 		expect(
 			screen.getByRole("link", {
-				name: /get started for free/i,
+				name: "Get started for free",
 			}),
 		).toHaveAttribute("href", "/words");
 	});
@@ -46,7 +46,7 @@ describe("HomePage", () => {
 		render(<HomePage />);
 
 		const featuresSection = document.querySelector("#features");
-        
+
 		const stepsSection = document.querySelector("#how-it-works");
 
 		expect(featuresSection?.querySelectorAll("article")).toHaveLength(features.length);
