@@ -1,5 +1,5 @@
-import { Role } from "@/src/generated/prisma/client";
 import { ReactNode } from "react";
+import { Role } from "@/src/generated/prisma/client";
 
 export interface ProfileTab {
 	id: number;
