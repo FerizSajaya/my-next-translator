@@ -15,12 +15,14 @@ export default async function DesktopNavigator() {
 	});
 
 	return (
-		<NavigationMenu className="hidden md:flex justify-center items-center h-12 border rounded-lg border-gray-200">
-			<NavigationMenuList>
-				{visibleNavigatorItems.map(({ id, href, title }) => (
-					<DesktopNavigatorItem key={id} href={href} title={title} />
-				))}
-			</NavigationMenuList>
-		</NavigationMenu>
+		<div className="w-max">
+			<NavigationMenu className="hidden md:flex justify-center items-center h-12 border rounded-lg border-gray-200">
+				<NavigationMenuList>
+					{visibleNavigatorItems.map(({ id, href, title }) => (
+						<DesktopNavigatorItem key={id} href={href} title={title} />
+					))}
+				</NavigationMenuList>
+			</NavigationMenu>
+		</div>
 	);
 }
