@@ -1,5 +1,5 @@
 import { UserProfileProps } from "@/src/types/auth.interface";
-import SignOutButton from "../../../../components/auth/SignOutButton";
+import SignOutButton from "@/src/components/auth/SignOutButton";
 
 export default function UserProfile({ user }: UserProfileProps) {
 	const { name, email } = user;
