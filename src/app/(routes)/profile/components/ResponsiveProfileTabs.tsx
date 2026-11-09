@@ -10,7 +10,6 @@ export default function ResponsiveProfileTabs({ visibleTabs, children }: Respons
 
 	useEffect(() => {
 		const mediaQuery = window.matchMedia("(min-width: 768px)");
-
 		const updateOrientation = () => {
 			setOrientation(mediaQuery.matches ? "vertical" : "horizontal");
 		};
