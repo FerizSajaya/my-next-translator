@@ -3,8 +3,8 @@ import { ProfileTab } from "../types/profile.interface";
 export const profileTabs: ProfileTab[] = [
 	{
 		id: 1,
-		value: "profile",
-		title: "Profile",
+		value: "account",
+		title: "Account",
 	},
 	{
 		id: 2,

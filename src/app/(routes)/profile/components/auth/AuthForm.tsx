@@ -9,7 +9,7 @@ export default function AuthForm() {
 	const [mode, setMode] = useState<AuthMode>("signin");
 
 	return (
-		<section className="flex justify-center items-center size-full p-2">
+		<section className="flex justify-center items-center size-full p-4">
 			{mode === "signin" ? <SignInForm onSwitch={() => setMode("signup")} /> : <SignUpForm onSwitch={() => setMode("signin")} />}
 		</section>
 	);

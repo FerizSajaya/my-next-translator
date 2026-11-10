@@ -1,5 +1,5 @@
 import { TabsContent } from "@/components/ui/tabs";
-import AuthForm from "@/src/components/auth/AuthForm";
+import AuthForm from "@/src/app/(routes)/profile/components/auth/AuthForm";
 import UserProfile from "@/src/app/(routes)/profile/components/UserProfile";
 import { profileTabs } from "@/src/enums/profile.enum";
 import { getCurrentUser } from "@/src/lib/auth/auth";
@@ -16,14 +16,14 @@ export default async function ProfilePage() {
 	});
 
 	return (
-		<main className="flex flex-col flex-1 justify-start items-center size-full py-2">
+		<main className="flex flex-col flex-1 justify-start items-center size-full">
 			{user ? (
 				<ResponsiveProfileTabs visibleTabs={visibleTabs}>
-					<TabsContent value="profile" className="flex-1">
+					<TabsContent value="account" className="flex-1 p-4">
 						<UserProfile user={user} />
 					</TabsContent>
 
-					<TabsContent value="settings" className="flex-1">
+					<TabsContent value="settings" className="flex-1 p-4">
 						<UserSettings />
 					</TabsContent>
 				</ResponsiveProfileTabs>

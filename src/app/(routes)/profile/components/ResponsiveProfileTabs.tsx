@@ -10,6 +10,7 @@ export default function ResponsiveProfileTabs({ visibleTabs, children }: Respons
 
 	useEffect(() => {
 		const mediaQuery = window.matchMedia("(min-width: 768px)");
+
 		const updateOrientation = () => {
 			setOrientation(mediaQuery.matches ? "vertical" : "horizontal");
 		};
@@ -26,11 +27,11 @@ export default function ResponsiveProfileTabs({ visibleTabs, children }: Respons
 	if (!orientation) return <ResponsiveProfileTabsSkeleton visibleTabs={visibleTabs} />;
 
 	return (
-		<Tabs defaultValue="profile" orientation={orientation} className="size-full">
-			<div className="w-full md:w-max md:h-full border-b md:border-b-0 md:border-e border-gray-200">
-				<TabsList variant="line" className="w-full md:w-max">
+		<Tabs defaultValue="account" orientation={orientation} className="size-full gap-0">
+			<div className="w-full md:w-max md:h-full md:p-3 md:pe-0 border-b md:border-b-0 md:border-e border-gray-200">
+				<TabsList variant="line" className="w-full md:w-max gap-2">
 					{visibleTabs.map(({ id, value, title }) => (
-						<TabsTrigger key={id} value={value}>
+						<TabsTrigger key={id} value={value} className="pe-3 cursor-pointer">
 							{title}
 						</TabsTrigger>
 					))}

@@ -4,7 +4,7 @@ import { cn } from "cn";
 import NavigatorWrapper from "@/src/components/navigator/NavigatorWrapper";
 import { Toaster } from "sonner";
 import QueryProvider from "@/src/providers/QueryProvider";
-import { ThemeProvider } from "@/src/components/theme-provider";
+import { ThemeProvider } from "@/src/components/ThemeProvider";
 
 import "./globals.css";
 
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function RootLayout({ children }: LayoutProps<"/">) {
 	return (
 		<html lang="en" dir="ltr" className={cn("antialiased", geist.variable, roboto.variable, roboto_mono.variable, "font-sans")}>
-			<body className="flex flex-col md:flex-col-reverse w-screen h-screen overflow-hidden">
+			<body className="w-screen h-screen pb-18 md:pb-0 md:pt-18 overflow-x-hidden cursor-default">
 				<QueryProvider>
 					<ThemeProvider>
 						{children}

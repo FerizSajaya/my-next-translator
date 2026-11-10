@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "pnpm db:init && concurrently \"next dev\" \"pnpm prisma studio\"",
+		"dev": "pnpm db:init && concurrently \"next dev --hostname 0.0.0.0\" \"pnpm prisma studio\"",
 		"db:init": "pnpm prisma migrate deploy && pnpm prisma db seed",
 		"build": "next build",
 		"start": "next start",

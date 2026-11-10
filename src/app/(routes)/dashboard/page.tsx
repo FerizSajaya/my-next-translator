@@ -1,4 +1,4 @@
-import AccessDenied from "@/src/components/auth/AccessDenied";
+import AccessDenied from "@/src/app/(routes)/profile/components/auth/AccessDenied";
 import { requireRoles } from "@/src/lib/auth/authorization";
 import { ForbiddenError, UnauthorizedError } from "@/src/lib/auth/errors";
 import UsersList from "./components/UsersList";

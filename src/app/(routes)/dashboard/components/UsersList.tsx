@@ -1,6 +1,6 @@
 import { getUsers } from "@/src/lib/users/getUsers";
 import UserRoleSelector from "./UserRoleSelector";
-import { DeleteUserModal } from "@/src/components/modals/DeleteUserModal";
+import { DeleteUserModal } from "@/src/app/(routes)/dashboard/components/DeleteUserModal";
 import { EmptyUsersList } from "./EmptyUsersList";
 
 export default async function UsersList() {

@@ -4,17 +4,17 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInSchema } from "@/src/lib/auth/validation";
-import { SignInFormProps, SignInInput } from "@/src/types/auth.interface";
+import { signUpSchema } from "@/src/lib/auth/validation";
+import { SignUpFormProps, SignUpInput } from "@/src/types/auth.interface";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { EyeIcon, EyeOffIcon, LoaderCircleIcon } from "lucide-react";
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSeparator } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { signinUser } from "@/src/actions/users/signinUser";
+import { signupUser } from "@/src/actions/users/signupUser";
 
-export default function SignInForm({ onSwitch }: SignInFormProps) {
+export default function SignUpForm({ onSwitch }: SignUpFormProps) {
 	const [showPassword, setShowPassword] = useState(false);
 	const router = useRouter();
 
@@ -24,28 +24,30 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 		reset,
 		watch,
 		formState: { errors },
-	} = useForm<SignInInput>({
-		resolver: zodResolver(signInSchema),
+	} = useForm<SignUpInput>({
+		resolver: zodResolver(signUpSchema),
 	});
 
 	const password = watch("password");
 
-	const { email: emailError, password: passwordError } = errors;
+	const confirmPassword = watch("confirmPassword");
 
-	const { mutate: handleSigninUser, isPending } = useMutation({
-		mutationFn: signinUser,
+	const { name: nameError, email: emailError, password: passwordError, confirmPassword: confirmPasswordError } = errors;
+
+	const { mutate: handleSignupUser, isPending } = useMutation({
+		mutationFn: signupUser,
 		onSuccess: () => {
-			toast.success("Signed in successfully!");
+			toast.success("Signed up successfully!");
 
 			router.refresh();
 		},
 		onError: (error) => {
-			toast.error(error instanceof Error ? error.message : "Failed to signin!");
+			toast.error(error instanceof Error ? error.message : "Failed to signup!");
 		},
 	});
 
-	const onSubmit = async (data: SignInInput) => {
-		handleSigninUser(data);
+	const onSubmit = async (data: SignUpInput) => {
+		handleSignupUser(data);
 	};
 
 	const handleCancel = () => {
@@ -54,10 +56,20 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 	};
 
 	return (
-		<div className="w-full max-w-md p-6 space-y-6 border rounded-lg">
+		<div className="w-full max-w-md p-6 space-y-6 border rounded-lg shadow-lg">
 			<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 				<FieldGroup>
-					<FieldLegend className="mx-auto mb-4 font-mono font-bold text-2xl!">Signin</FieldLegend>
+					<FieldLegend className="mx-auto mb-4 font-mono font-bold text-2xl!">Signup</FieldLegend>
+
+					<Field>
+						<FieldLabel htmlFor="name" className="font-mono">
+							Name
+						</FieldLabel>
+
+						<Input id="name" {...register("name")} placeholder="Enter your full name" />
+
+						{nameError && <FieldDescription className="text-xs text-red-500">{nameError.message}</FieldDescription>}
+					</Field>
 
 					<Field>
 						<FieldLabel htmlFor="email" className="font-mono">
@@ -88,13 +100,41 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 								type="button"
 								size="icon"
 								onClick={() => setShowPassword((prev) => !prev)}
-								className="absolute top-6.75 inset-e-0 size-8! text-muted-foreground"
+								className="absolute top-6.75 inset-e-0 size-8! text-muted-foreground cursor-pointer"
 								aria-label={showPassword ? "Hide password" : "Show password"}>
 								{showPassword ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
 							</Button>
 						)}
 
 						{passwordError && <FieldDescription className="text-xs text-red-500">{passwordError.message}</FieldDescription>}
+					</Field>
+
+					<Field className="relative">
+						<FieldLabel htmlFor="confirmPassword" className="font-mono">
+							Confirm Password
+						</FieldLabel>
+
+						<Input
+							id="confirmPassword"
+							{...register("confirmPassword")}
+							type={showPassword ? "text" : "password"}
+							placeholder="Enter your password again"
+							className="w-full p-2 pe-10 border rounded-md"
+						/>
+
+						{confirmPassword && (
+							<Button
+								variant="ghost"
+								type="button"
+								size="icon"
+								onClick={() => setShowPassword((prev) => !prev)}
+								className="absolute top-6.75 inset-e-0 size-8! text-muted-foreground"
+								aria-label={showPassword ? "Hide confirm password" : "Show confirm password"}>
+								{showPassword ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
+							</Button>
+						)}
+
+						{confirmPasswordError && <FieldDescription className="text-xs text-red-500">{confirmPasswordError.message}</FieldDescription>}
 					</Field>
 
 					<Field orientation="horizontal" className="mt-4">
@@ -113,9 +153,9 @@ export default function SignInForm({ onSwitch }: SignInFormProps) {
 			</form>
 
 			<div className="text-center text-sm">
-				Don't have account?{" "}
+				Already have account?{" "}
 				<Button variant="ghost" type="button" onClick={onSwitch} className="p-0 font-medium underline">
-					Signup
+					Signin
 				</Button>
 			</div>
 		</div>

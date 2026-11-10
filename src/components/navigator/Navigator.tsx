@@ -16,8 +16,8 @@ export default async function Navigator() {
 	return (
 		<>
 			{/* Mobile */}
-			<NavigationMenu className="block md:hidden w-full h-12">
-				<NavigationMenuList className="flex justify-between items-center">
+			<NavigationMenu className="flex md:hidden justify-center items-center size-full">
+				<NavigationMenuList className="flex justify-evenly items-center h-full">
 					{visibleNavigatorItems.map(({ id, href, title }) => (
 						<MobileNavigatorItem key={id} href={href} title={title} />
 					))}
@@ -25,8 +25,8 @@ export default async function Navigator() {
 			</NavigationMenu>
 
 			{/* Desktop */}
-			<div className="hidden md:block w-max">
-				<NavigationMenu className="flex justify-center items-center h-12 border rounded-lg border-gray-200">
+			<div className="hidden md:flex justify-center items-center w-max h-14">
+				<NavigationMenu className="flex justify-center items-center h-full">
 					<NavigationMenuList>
 						{visibleNavigatorItems
 							.filter(({ href }) => href !== "/profile")

@@ -15,19 +15,19 @@ export default function NavigatorMobileItem({ href, title }: NavigatorMobileItem
 	const isActive = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
 	return (
-		<NavigationMenuItem>
+		<NavigationMenuItem className="h-full">
 			<NavigationMenuLink
 				active={isActive}
 				className={cn(
 					navigationMenuTriggerStyle(),
-					"h-full px-2 py-1 rounded-sm",
-					isActive ? "bg-sky-100! text-sky-900 dark:bg-blue-900! dark:text-white" : "bg-transparent",
+					"h-full rounded-none",
+					isActive ? "border-t-2 border-zinc-700 text-zinc-800! dark:bg-zinc-900! dark:text-white!" : "bg-transparent text-zinc-600!",
 				)}
 				render={
-					<Link href={href} replace aria-current={isActive ? "page" : undefined} className="flex h-full flex-col items-center justify-between">
-						<Icon size={20} strokeWidth={2} />
+					<Link href={href} replace aria-current={isActive ? "page" : undefined} className="flex flex-col justify-between items-center h-full">
+						<Icon strokeWidth={2} className="size-6" />
 
-						<span className="text-2xs">{title}</span>
+						<span className="text-base">{title}</span>
 					</Link>
 				}
 			/>

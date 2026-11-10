@@ -20,12 +20,12 @@ export default function NavigatorDesktopItem({ href, title }: NavigatorDesktopIt
 				active={isActive}
 				className={cn(
 					navigationMenuTriggerStyle(),
-					"h-full mx-2 px-2 py-1 rounded-sm",
-					isActive ? "bg-sky-100! text-sky-900 dark:bg-blue-900! dark:text-white" : "bg-transparent",
+					"h-full",
+					isActive ? "bg-zinc-200! text-zinc-800! dark:bg-zinc-900! dark:text-white!" : "bg-transparent text-zinc-600!",
 				)}
 				render={
 					<Link href={href} replace className={`flex justify-center items-center gap-2 h-full mx-2 py-1 px-4 rounded-full`}>
-						<Icon size={20} strokeWidth={2} />
+						<Icon strokeWidth={2} className="size-6" />
 
 						<span className="text-base">{title}</span>
 					</Link>
